@@ -1,0 +1,52 @@
+components:
+
+  schemas:
+
+    ApplicablePrice:
+      description: The response body for a successful retrieval of applicable price
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: product id
+          example: 35455
+        brandId:
+          type: integer
+          format: int32
+          description: brand id
+          example: 1
+        tariffId:
+          type: integer
+          format: int64
+          description: tariff Id
+          example: 1
+        startDate:
+          type: string
+          format: date-time
+          description: tariff price start date
+        endDate:
+          type: string
+          format: date-time
+          description: tariff price end date
+        price:
+          type: number
+          description: final price
+          example: 35.50
+        currency:
+          type: string
+          description: ISO Currency Code 
+          example: "EUR"
+
+    Error:
+      type: 'object'
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: 'http status error'
+        detail:
+          type: 'string'
+          description: 'error description'
+   
+   

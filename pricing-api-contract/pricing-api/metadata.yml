@@ -1,0 +1,14 @@
+name: pricing-api
+
+displayName: Pricing API
+
+description: API for managing price
+
+version: 1.0.0
+
+status: active
+
+contract:
+  format: openapi
+  version: 3.0.3
+  file: openapi-rest.yml

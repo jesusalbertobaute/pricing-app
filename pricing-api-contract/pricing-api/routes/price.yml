@@ -1,0 +1,24 @@
+get:
+  tags:
+    - Pricing
+  operationId: getPrice
+  summary: Get applicable end price by application date, product and brand
+  parameters:
+    - $ref: '../components/parameters/parameters.yml#/components/parameters/ApplicationDate'
+    - $ref: '../components/parameters/parameters.yml#/components/parameters/ProductId'
+    - $ref: '../components/parameters/parameters.yml#/components/parameters/BrandId'
+  responses:
+    '200':
+      description: Applicable price found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/schemas.yml#/components/schemas/ApplicablePrice'
+    '400':
+      $ref: '../components/responses/responses.yml#/components/responses/BadRequestResponse'
+    '404':
+      $ref: '../components/responses/responses.yml#/components/responses/NotFoundResponse'
+    '429':
+      $ref: '../components/responses/responses.yml#/components/responses/TooManyRequestResponse'
+    '500':
+      $ref: "../components/responses/responses.yml#/components/responses/InternalServerResponse"

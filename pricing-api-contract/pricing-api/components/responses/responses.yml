@@ -1,0 +1,44 @@
+components:
+  responses:
+    BadRequestResponse:
+      description: The response body when the server returns a Bad Request error.
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/schemas.yml#/components/schemas/Error"
+          example: {
+                "code": "400",
+                "detail": "Parameter not found"
+          }
+    NotFoundResponse:
+      description: The response body when the server returns a Not Found error.
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/schemas.yml#/components/schemas/Error"
+          example: {
+                "code": "404",
+                "detail": "Price Not Found"
+          }
+    TooManyRequestResponse:
+      description: The response body when the server returns a Too Many Requests error.
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/schemas.yml#/components/schemas/Error"
+          example: {
+                "code": "429",
+                "detail": "Too Many Request"
+          }
+    InternalServerResponse:
+      description: The response body when the server returns a Internal Server Error.
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/schemas.yml#/components/schemas/Error"
+          example: {
+                "code": "429",
+                "detail": "Internal Server Error"
+          }
+    
+

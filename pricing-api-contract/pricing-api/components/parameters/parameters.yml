@@ -1,0 +1,34 @@
+components:
+
+  parameters:
+
+      ApplicationDate:
+        in: query
+        name: applicationDate
+        required: true
+        description: It indicates the application date of price. This parameter is required.
+        schema:
+          type: string
+          format: date-time
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'
+        example: "2026-09-23T17:06:32.123Z"
+      
+      ProductId:
+        in: query
+        name: productId
+        required: true
+        description: It indicates the product id. This parameter is required.
+        schema:
+          type: integer
+          format: int64
+        example: 35455
+      
+      BrandId:
+        in: query
+        name: brandId
+        required: true
+        description: It indicates the brand id. This parameter is required.
+        schema:
+          type: integer
+          format: int32
+        example: 1

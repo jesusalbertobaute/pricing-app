@@ -1,0 +1,15 @@
+openapi: 3.0.3
+
+info:
+  title: Pricing API
+  version: 1.0.0
+  description: |-
+    This is the Pricing Service contract
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+  /ecommerce/price:
+    $ref: './routes/price.yml'

@@ -1,0 +1,6 @@
+name: pricing-api-contract
+
+apis:
+  - name: pricing-api
+    path: pricing-api/openapi-rest.yml
+    version: 1.0.0
