@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.1.1</version>
+		<relativePath/>
+	</parent>
+	<groupId>com.inditex.ecommerce</groupId>
+	<artifactId>princing-service</artifactId>
+	<version>1.0.0</version>
+	<name>princing-service</name>
+	<description/>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>21</java.version>
+		<spring-cloud.version>2025.1.3</spring-cloud.version>
+		<api-contract.version>1.0.0</api-contract.version>
+		<openapi-generator.version>7.15.0</openapi-generator.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-dependency-resources.version>3.8.1</maven-dependency-resources.version>
+        <springdoc.version>3.1.1</springdoc.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-h2console</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+		    <version>${springdoc.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.inditex.ecommerce</groupId>
+			<artifactId>pricing-api-contract</artifactId>
+			<version>${api-contract.version}</version>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+		    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>unpack-api-contract</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.inditex.ecommerce</groupId>
+                                    <artifactId>pricing-api-contract</artifactId>
+                                    <version>${api-contract.version}</version>
+
+                                    <outputDirectory>
+                                        ${project.build.directory}/contract
+                                    </outputDirectory>
+
+                                    <includes>
+                                        pricing-api/**
+                                    </includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <version>${maven-resources-plugin.version}</version>
+			
+			    <executions>
+			        <execution>
+			            <id>copy-openapi-contract</id>
+			            <phase>process-resources</phase>
+			            <goals>
+			                <goal>copy-resources</goal>
+			            </goals>
+			
+			            <configuration>
+			                <outputDirectory>
+			                    ${project.build.outputDirectory}/static/openapi
+			                </outputDirectory>
+			
+			                <resources>
+			                    <resource>
+			                        <directory>
+			                            ${project.build.directory}/contract/pricing-api
+			                        </directory>
+			                    </resource>
+			                </resources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>generate-pricing-api</id>
+                        <phase>generate-sources</phase>
+
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <inputSpec>
+                                ${project.build.directory}/contract/pricing-api/openapi-rest.yml
+                            </inputSpec>
+
+                            <generatorName>spring</generatorName>
+
+                            <output>
+                                ${project.build.directory}/generated-sources/openapi
+                            </output>
+
+                            <apiPackage>
+                                com.inditex.ecommerce.pricing.generated.api
+                            </apiPackage>
+
+                            <modelPackage>
+                                com.inditex.ecommerce.pricing.generated.model
+                            </modelPackage>
+
+                            <generateApis>true</generateApis>
+                            <generateModels>true</generateModels>
+
+                            <generateSupportingFiles>true</generateSupportingFiles>
+
+							<supportingFilesToGenerate>
+							    ApiUtil.java
+							</supportingFilesToGenerate>
+
+                            <interfaceOnly>true</interfaceOnly>
+
+							<configOptions>
+								<useSpringBoot4>true</useSpringBoot4>
+								<useJakartaEe>true</useJakartaEe>
+								<useBeanValidation>true</useBeanValidation>
+								<openApiNullable>false</openApiNullable>
+								<useTags>true</useTags>
+							</configOptions> 
+
+                            <!--
+
+							<modelNameSuffix>Dto</modelNameSuffix>-->
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
