@@ -1,0 +1,142 @@
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    1,
+    TIMESTAMP '2026-06-14 00:00:00',
+    TIMESTAMP '2026-12-31 23:59:59',
+    1,
+    35455,
+    0,
+    35.50,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);
+
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    1,
+    TIMESTAMP '2026-06-14 15:00:00',
+    TIMESTAMP '2026-06-14 18:30:00',
+    2,
+    35455,
+    1,
+    25.45,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);
+
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    1,
+    TIMESTAMP '2026-06-15 00:00:00',
+    TIMESTAMP '2026-06-15 11:00:00',
+    3,
+    35455,
+    1,
+    30.50,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);
+
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    1,
+    TIMESTAMP '2026-06-15 16:00:00',
+    TIMESTAMP '2026-12-31 23:59:59',
+    4,
+    35455,
+    1,
+    38.95,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);
+-- Otra brand, mismo producto y mismo rango temporal
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    2,
+    TIMESTAMP '2026-06-14 00:00:00',
+    TIMESTAMP '2026-12-31 23:59:59',
+    5,
+    35455,
+    99,
+    10.00,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);
+INSERT INTO PRICES (
+    ID,
+    BRAND_ID,
+    START_DATE,
+    END_DATE,
+    TARIFF_ID,
+    PRODUCT_ID,
+    PRIORITY,
+    PRICE,
+    CURRENCY_CODE,
+    CREATED_AT
+) VALUES (
+    RANDOM_UUID(),
+    1,
+    TIMESTAMP '2025-06-14 00:00:00',
+    TIMESTAMP '2025-12-31 23:59:59',
+    6,
+    35455,
+    99,
+    10.00,
+    'EUR',
+    DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
+);

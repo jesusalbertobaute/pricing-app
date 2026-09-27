@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db/schema.sql
+      data-locations:
+        - classpath:db/data.sql
+resilience4j:
+  ratelimiter:
+    instances:
+      getApplicablePriceApiLimiter:
+        limit-for-period: 15
+        limit-refresh-period: 1s
+        timeout-duration: 500ms
