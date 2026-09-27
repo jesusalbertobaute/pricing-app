@@ -14,8 +14,5 @@ public interface ApplicablePriceMapper {
    Price toPrice(PriceEntity priceEntity);
    
    @Mapping(target = "price", source = "endPrice")
-   PriceEntity toPriceEntity(Price price);
-   
-   @Mapping(target = "price", source = "endPrice")
    ApplicablePriceDto toApplicablePriceDto(Price price);
 }
