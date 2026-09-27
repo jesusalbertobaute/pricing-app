@@ -10,8 +10,7 @@ components:
         schema:
           type: string
           format: date-time
-          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'
-        example: "2026-09-23T17:06:32.123Z"
+        example: "2020-06-14T16:00:00"
       
       ProductId:
         in: query

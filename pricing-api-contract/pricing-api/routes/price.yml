@@ -4,9 +4,9 @@ get:
   operationId: getPrice
   summary: Get applicable end price by application date, product and brand
   parameters:
-    - $ref: '../components/parameters/parameters.yml#/components/parameters/ApplicationDate'
-    - $ref: '../components/parameters/parameters.yml#/components/parameters/ProductId'
     - $ref: '../components/parameters/parameters.yml#/components/parameters/BrandId'
+    - $ref: '../components/parameters/parameters.yml#/components/parameters/ProductId'
+    - $ref: '../components/parameters/parameters.yml#/components/parameters/ApplicationDate'
   responses:
     '200':
       description: Applicable price found

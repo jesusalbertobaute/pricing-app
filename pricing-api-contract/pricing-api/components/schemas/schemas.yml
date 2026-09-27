@@ -5,6 +5,14 @@ components:
     ApplicablePrice:
       description: The response body for a successful retrieval of applicable price
       type: object
+      required:
+        - productId
+        - brandId
+        - tariffId
+        - startDate
+        - endDate
+        - price
+        - currencyCode
       properties:
         productId:
           type: integer
@@ -33,13 +41,16 @@ components:
           type: number
           description: final price
           example: 35.50
-        currency:
+        currencyCode:
           type: string
           description: ISO Currency Code 
           example: "EUR"
 
     Error:
       type: 'object'
+      required:
+        - code
+        - detail
       properties:
         code:
           type: integer
