@@ -1,0 +1,17 @@
+services:
+
+  pricing-service:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: pricing-service:local
+    ports:
+      - "8080:8080"
+
+  pricing-test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.jacoco
+    image: pricing-service-test:local
+    volumes:
+      - ./jacoco-report:/build/pricing-service/target/site/jacoco
