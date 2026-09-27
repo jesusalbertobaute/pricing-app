@@ -1,4 +1,4 @@
-package com.inditex.ecommerce.pricing.domain.model;
+package com.inditex.ecommerce.pricing.unit.domain.model;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,11 +11,14 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.inditex.ecommerce.pricing.domain.exception.DateRangeNotAllowedException;
 import com.inditex.ecommerce.pricing.domain.exception.DomainException;
+import com.inditex.ecommerce.pricing.domain.model.Price;
 
+@Tag("Unit")
 @DisplayName("Tests for the Price Domain Model")
 class PriceTest {
 
