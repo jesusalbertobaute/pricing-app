@@ -68,4 +68,5 @@ desktop.ini
 # Test / Coverage
 ########################################
 */coverage/
+*docker/jacoco-report/**
 */jacoco.exec
