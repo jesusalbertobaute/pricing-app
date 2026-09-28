@@ -129,6 +129,22 @@ Respuesta:
     "currencyCode": "EUR"
 }
 ```
+
+### Documentaci&oacute;n de la API
+
+La documentaci&oacute;n de la API se encuentra disponible en esta url:
+
+```http
+/swagger-ui/index.html
+```
+
+Ejemplo:
+```http
+http://localhost:8080/swagger-ui/index.html
+```
+
+### Consultar precio
+
 ## Datos iniciales
 
 La aplicaci&oacute;n se inicializa con las siguientes tarifas:
