@@ -7,7 +7,9 @@ components:
           schema:
             $ref: "../schemas/schemas.yml#/components/schemas/Error"
           example: {
-                "code": "400",
+                "type": "about:blank",
+                "status": 400,
+                "title": "Bad Request",
                 "detail": "Parameter not found"
           }
     NotFoundResponse:
@@ -17,7 +19,9 @@ components:
           schema:
             $ref: "../schemas/schemas.yml#/components/schemas/Error"
           example: {
-                "code": "404",
+                "type": "about:blank",
+                "status": 404,
+                "title": "Resource Not Found",
                 "detail": "Price Not Found"
           }
     TooManyRequestResponse:
@@ -27,7 +31,9 @@ components:
           schema:
             $ref: "../schemas/schemas.yml#/components/schemas/Error"
           example: {
-                "code": "429",
+                "type": "about:blank",
+                "status": 429,
+                "title": "Too Many Request",
                 "detail": "Too Many Request"
           }
     InternalServerResponse:
@@ -37,7 +43,9 @@ components:
           schema:
             $ref: "../schemas/schemas.yml#/components/schemas/Error"
           example: {
-                "code": "500",
+                "type": "about:blank",
+                "status": 500,
+                "title": "Internal Server Error",
                 "detail": "Internal Server Error"
           }
     
