@@ -1,0 +1,31 @@
+extends: ["spectral:oas"]
+rules:
+  operation-description: info
+  info-contact: warn
+  info-description: error
+  
+  operation-tags:
+    description: "Each operation must belong to a Tag."
+    severity: error
+    given: "$.paths.*.*"
+    then:
+      field: tags
+      function: defined
+
+  path-kebab-case:
+    description: "Routes must use kebab-case."
+    severity: error
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9-]+)*$"
+    
+  path-versioning:
+    description: "La URL debe incluir la versión mayor de la API (ej: /v1/)."
+    severity: error
+    given: "$.paths.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\/v[0-9]+\\/"
