@@ -29,7 +29,7 @@ public class RestApplicablePriceControllerIT {
 	@Autowired
     private MockMvc mockMvc;
 	
-	private final String URL_PATH = "/ecommerce/price";
+	private final String URL_PATH = "/v2/ecommerce/price";
 
     @Test
     @DisplayName("""
@@ -221,7 +221,9 @@ public class RestApplicablePriceControllerIT {
                 .param("productId", productId.toString())
                 .param("applicationDate", applicationDate.toString()))
             .andExpect(status().isNotFound())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -243,7 +245,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", productId.toString())
                 .param("applicationDate", applicationDate.toString()))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -263,7 +267,9 @@ public class RestApplicablePriceControllerIT {
                 .param("brandId", brandId.toString())
                 .param("applicationDate", applicationDate.toString()))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -284,7 +290,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", "test")
                 .param("applicationDate", applicationDate.toString()))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -304,7 +312,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", productId.toString())
                 .param("applicationDate", "29319"))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -324,7 +334,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", productId.toString())
                 .param("applicationDate", "2020-06-14"))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -345,7 +357,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", productId.toString())
                 .param("applicationDate", applicationDate.toString()))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     
@@ -364,7 +378,9 @@ public class RestApplicablePriceControllerIT {
                 .param("product", productId.toString())
                 .param("applicationDate", "29319"))
             .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.code").exists())
+            .andExpect(jsonPath("$.type").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.title").exists())
             .andExpect(jsonPath("$.detail").exists());
     }
     

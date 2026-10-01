@@ -23,7 +23,7 @@ public class RestApplicablePriceControllerRateLimiterIT {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private final String URL_PATH = "/ecommerce/price";
+	private final String URL_PATH = "/v2/ecommerce/price";
 
 	@Test
 	@DisplayName("""

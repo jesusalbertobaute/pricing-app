@@ -64,7 +64,11 @@ public class GlobalExceptionHandler {
 	}
 	
 	protected ErrorDto createErrorDto(HttpStatus httpStatus, String message) {
-		return new ErrorDto(httpStatus.value(),message);
+		return new ErrorDto("about:blank", httpStatus.value(), httpStatus.getReasonPhrase() ,message);
+	}
+	
+	protected ErrorDto createErrorDto(String type, HttpStatus httpStatus, String title, String detail) {
+		return new ErrorDto(type,httpStatus.value(),title,detail);
 	}
 
 }
