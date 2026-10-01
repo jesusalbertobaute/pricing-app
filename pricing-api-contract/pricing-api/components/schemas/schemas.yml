@@ -47,17 +47,26 @@ components:
           example: "EUR"
 
     Error:
+      description: A structured error response compliant with the RFC 9457 standard (Problem Details for HTTP APIs).
       type: 'object'
       required:
-        - code
+        - type
+        - status
+        - title
         - detail
       properties:
-        code:
+        type:
+          type: string
+          description: 'The unique identifier for the error type. Settled as "about:blank" to indicate that the error is fully defined by the HTTP status code'
+        status:
           type: integer
           format: int32
-          description: 'http status error'
+          description: 'The HTTP status code'
+        title:
+          type: 'string'
+          description: 'A short, human-readable summary of the problem type'
         detail:
           type: 'string'
-          description: 'error description'
+          description: 'A dynamic, contextual explanation of the specific failure'
    
    

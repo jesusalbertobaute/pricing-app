@@ -3,6 +3,7 @@ get:
     - Pricing
   operationId: getPrice
   summary: Get applicable end price by application date, product and brand
+  description: Retrieves the final applicable price for a specific product and brand at a given date.
   parameters:
     - $ref: '../components/parameters/parameters.yml#/components/parameters/BrandId'
     - $ref: '../components/parameters/parameters.yml#/components/parameters/ProductId'
