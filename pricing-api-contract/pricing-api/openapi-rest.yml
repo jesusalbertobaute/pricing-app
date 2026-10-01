@@ -2,14 +2,20 @@ openapi: 3.0.3
 
 info:
   title: Pricing API
-  version: 1.0.0
+  version: 2.0.0
+  contact: 
+    url: jesusalbertobaute@gmail.com
   description: |-
     This is the Pricing Service contract
+
+tags:
+  - name: Pricing
+    description: Operations related to end price.
 
 servers:
   - url: http://localhost:8080
 
 paths:
 
-  /ecommerce/price:
+  /v2/ecommerce/price:
     $ref: './routes/price.yml'
