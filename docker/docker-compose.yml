@@ -8,10 +8,18 @@ services:
     ports:
       - "8080:8080"
 
-  pricing-test:
+  pricing-test-jacoco:
     build:
       context: ..
       dockerfile: docker/Dockerfile.jacoco
-    image: pricing-service-test:local
+    image: pricing-service-test-jacoco:local
     volumes:
       - ./jacoco-report:/build/pricing-service/target/site/jacoco
+
+  pricing-test-pit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.pit
+    image: pricing-service-test-pit:local
+    volumes:
+      - ./pit-report:/build/pricing-service/target/pit-reports

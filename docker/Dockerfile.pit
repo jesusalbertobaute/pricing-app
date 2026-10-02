@@ -1,0 +1,35 @@
+FROM maven:3.9-eclipse-temurin-21
+
+WORKDIR /build
+
+COPY pricing-api-contract/pom.xml pricing-api-contract/pom.xml
+
+RUN mvn \
+    -f pricing-api-contract/pom.xml \
+    clean install \
+    -DskipTests
+
+COPY pricing-api-contract/target/classes/pricing-api/ \
+    pricing-api-contract/target/classes/pricing-api/
+
+COPY pricing-service/pom.xml pricing-service/pom.xml
+COPY pricing-service/src pricing-service/src
+
+RUN mvn \
+    -f pricing-service/pom.xml \
+    clean \
+    -DskipTests
+
+RUN mkdir -p pricing-service/target/contract/pricing-api \
+    && cp -r pricing-api-contract/target/classes/pricing-api/. \
+       pricing-service/target/contract/pricing-api/
+
+RUN mvn \
+    -f pricing-service/pom.xml \
+    test \
+    -DskipTests
+
+
+WORKDIR /build/pricing-service
+
+CMD ["mvn", "-Pmutation-testing", "org.pitest:pitest-maven:mutationCoverage"]

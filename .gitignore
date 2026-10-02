@@ -69,4 +69,5 @@ desktop.ini
 ########################################
 */coverage/
 *docker/jacoco-report/**
+*docker/pit-report/**
 */jacoco.exec
