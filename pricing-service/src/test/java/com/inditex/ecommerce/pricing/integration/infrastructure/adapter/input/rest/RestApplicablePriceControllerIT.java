@@ -35,7 +35,7 @@ public class RestApplicablePriceControllerIT {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private final String URL_PATH = "/v2/ecommerce/price";
+	private final String urlPath = "/v2/ecommerce/price";
 
 	@ParameterizedTest(name = "{0}")
 	@MethodSource("applicablePriceCases")
@@ -49,7 +49,7 @@ public class RestApplicablePriceControllerIT {
 		final Integer brandId = 1;
 		final Long productId = 35455L;
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("productId", productId.toString())
 				.param("applicationDate", applicationDate.toString()))
@@ -73,7 +73,7 @@ public class RestApplicablePriceControllerIT {
 	    final Integer brandId = 1;
 	    final Long productId = 35455L;
 
-	    mockMvc.perform(get(URL_PATH)
+	    mockMvc.perform(get(urlPath)
 	            .param("brandId", brandId.toString())
 	            .param("productId", productId.toString())
 	            .param("applicationDate", applicationDate.toString()))
@@ -90,7 +90,7 @@ public class RestApplicablePriceControllerIT {
 			""")
 	void shouldReturnPriceAtExactEndOfPricingPeriod() throws Exception {
 
-	    mockMvc.perform(get(URL_PATH)
+	    mockMvc.perform(get(urlPath)
 	            .param("brandId", "1")
 	            .param("productId", "35455")
 	            .param("applicationDate", "2026-12-31T23:59:59"))
@@ -110,7 +110,7 @@ public class RestApplicablePriceControllerIT {
 			     """)
 	void shouldReturnNotFoundAfterEndOfPricingPeriod() throws Exception {
 
-	    mockMvc.perform(get(URL_PATH)
+	    mockMvc.perform(get(urlPath)
 	            .param("brandId", "1")
 	            .param("productId", "35455")
 	            .param("applicationDate", "2027-01-01T00:00:00"))
@@ -130,7 +130,7 @@ public class RestApplicablePriceControllerIT {
 		final LocalDateTime applicationDate =
 				LocalDateTime.of(2022, 6, 14, 10, 0);
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("productId", productId.toString())
 				.param("applicationDate", applicationDate.toString()))
@@ -154,7 +154,7 @@ public class RestApplicablePriceControllerIT {
 		final LocalDateTime applicationDate =
 				LocalDateTime.of(2022, 6, 14, 10, 0);
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("product", productId.toString())
 				.param("applicationDate", applicationDate.toString()))
@@ -177,7 +177,7 @@ public class RestApplicablePriceControllerIT {
 		final LocalDateTime applicationDate =
 				LocalDateTime.of(2022, 6, 14, 10, 0);
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("applicationDate", applicationDate.toString()))
 		.andExpect(status().isBadRequest())
@@ -199,7 +199,7 @@ public class RestApplicablePriceControllerIT {
 		final LocalDateTime applicationDate =
 				LocalDateTime.of(2022, 6, 14, 10, 0);
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("product", "test")
 				.param("applicationDate", applicationDate.toString()))
@@ -221,7 +221,7 @@ public class RestApplicablePriceControllerIT {
 		final Integer brandId = 1;
 		final Long productId = 35455L;
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("product", productId.toString())
 				.param("applicationDate", "29319"))
@@ -243,7 +243,7 @@ public class RestApplicablePriceControllerIT {
 		final Integer brandId = 1;
 		final Long productId = 35455L;
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", brandId.toString())
 				.param("product", productId.toString())
 				.param("applicationDate", "2020-06-14"))
@@ -266,7 +266,7 @@ public class RestApplicablePriceControllerIT {
 		final LocalDateTime applicationDate =
 				LocalDateTime.of(2022, 6, 14, 10, 0);
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", "")
 				.param("product", productId.toString())
 				.param("applicationDate", applicationDate.toString()))
@@ -287,7 +287,7 @@ public class RestApplicablePriceControllerIT {
 	void shouldReturnBadRequestNullError() throws Exception {
 		final Long productId = 35455L;
 
-		mockMvc.perform(get(URL_PATH)
+		mockMvc.perform(get(urlPath)
 				.param("brandId", "null")
 				.param("product", productId.toString())
 				.param("applicationDate", "29319"))

@@ -9,10 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.inditex.ecommerce.pricing.domain.exception.DateRangeNotAllowedException;
 import com.inditex.ecommerce.pricing.domain.exception.DomainException;
@@ -437,13 +441,12 @@ class PriceTest {
                 exception.getMessage());
     }
 
-    @Test
-    @DisplayName("""
-            Given a Price with a null currencyCode
-            When the Price is created
-            Then a DomainException should be thrown
-            """)
-    void shouldThrowExceptionWhenCurrencyCodeIsNull() {
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("invalidCurrencyCodes")
+    @DisplayName("Should throw an exception when currencyCode is invalid")
+    void shouldThrowExceptionWhenCurrencyCodeIsInvalid(
+            String testCase,
+            String currencyCode) {
 
         DomainException exception = assertThrows(
                 DomainException.class,
@@ -456,115 +459,7 @@ class PriceTest {
                         PRODUCT_ID,
                         PRIORITY,
                         END_PRICE,
-                        null,
-                        CREATED_AT));
-
-        assertEquals(
-                "currencyCode must be a valid 3-letter uppercase code",
-                exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("""
-            Given a Price with a blank currencyCode
-            When the Price is created
-            Then a DomainException should be thrown
-            """)
-    void shouldThrowExceptionWhenCurrencyCodeIsBlank() {
-
-        DomainException exception = assertThrows(
-                DomainException.class,
-                () -> createPrice(
-                        ID,
-                        BRAND_ID,
-                        START_DATE,
-                        END_DATE,
-                        TARIFF_ID,
-                        PRODUCT_ID,
-                        PRIORITY,
-                        END_PRICE,
-                        "   ",
-                        CREATED_AT));
-
-        assertEquals(
-                "currencyCode must be a valid 3-letter uppercase code",
-                exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("""
-            Given a Price with a currencyCode shorter than three characters
-            When the Price is created
-            Then a DomainException should be thrown
-            """)
-    void shouldThrowExceptionWhenCurrencyCodeHasLessThanThreeCharacters() {
-
-        DomainException exception = assertThrows(
-                DomainException.class,
-                () -> createPrice(
-                        ID,
-                        BRAND_ID,
-                        START_DATE,
-                        END_DATE,
-                        TARIFF_ID,
-                        PRODUCT_ID,
-                        PRIORITY,
-                        END_PRICE,
-                        "EU",
-                        CREATED_AT));
-
-        assertEquals(
-                "currencyCode must be a valid 3-letter uppercase code",
-                exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("""
-            Given a Price with a currencyCode longer than three characters
-            When the Price is created
-            Then a DomainException should be thrown
-            """)
-    void shouldThrowExceptionWhenCurrencyCodeHasMoreThanThreeCharacters() {
-
-        DomainException exception = assertThrows(
-                DomainException.class,
-                () -> createPrice(
-                        ID,
-                        BRAND_ID,
-                        START_DATE,
-                        END_DATE,
-                        TARIFF_ID,
-                        PRODUCT_ID,
-                        PRIORITY,
-                        END_PRICE,
-                        "EURO",
-                        CREATED_AT));
-
-        assertEquals(
-                "currencyCode must be a valid 3-letter uppercase code",
-                exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("""
-            Given a Price with a lowercase currencyCode
-            When the Price is created
-            Then a DomainException should be thrown
-            """)
-    void shouldThrowExceptionWhenCurrencyCodeIsNotUppercase() {
-
-        DomainException exception = assertThrows(
-                DomainException.class,
-                () -> createPrice(
-                        ID,
-                        BRAND_ID,
-                        START_DATE,
-                        END_DATE,
-                        TARIFF_ID,
-                        PRODUCT_ID,
-                        PRIORITY,
-                        END_PRICE,
-                        "eur",
+                        currencyCode,
                         CREATED_AT));
 
         assertEquals(
@@ -762,6 +657,32 @@ class PriceTest {
                 CURRENCY_CODE,
                 CREATED_AT);
     }
+    
+
+    private static Stream<Arguments> invalidCurrencyCodes() {
+        return Stream.of(
+                Arguments.of(
+                        "currencyCode is null",
+                        null),
+
+                Arguments.of(
+                        "currencyCode is blank",
+                        "   "),
+
+                Arguments.of(
+                        "currencyCode has less than three characters",
+                        "EU"),
+
+                Arguments.of(
+                        "currencyCode has more than three characters",
+                        "EURO"),
+
+                Arguments.of(
+                        "currencyCode is not uppercase",
+                        "eur")
+        );
+    }
+
 
     private Price createPrice(
             UUID id,
