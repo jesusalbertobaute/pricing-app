@@ -93,7 +93,6 @@ INSERT INTO PRICES (
     'EUR',
     DATE_TRUNC('SECOND', CURRENT_TIMESTAMP)
 );
--- Otra brand, mismo producto y mismo rango temporal
 INSERT INTO PRICES (
     ID,
     BRAND_ID,
