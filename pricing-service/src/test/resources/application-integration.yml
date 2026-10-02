@@ -17,6 +17,6 @@ resilience4j:
   ratelimiter:
     instances:
       getApplicablePriceApiLimiter:
-        limit-for-period: 15
+        limit-for-period: 50
         limit-refresh-period: 1s
         timeout-duration: 500ms
