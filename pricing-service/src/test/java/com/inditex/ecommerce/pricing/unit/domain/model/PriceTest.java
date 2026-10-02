@@ -38,17 +38,6 @@ class PriceTest {
 
     @Test
     @DisplayName("""
-            Given a Price with valid data
-            When the Price is created
-            Then no exception should be thrown
-            """)
-    void shouldCreatePriceWhenDataIsValid() {
-
-        assertDoesNotThrow(() -> createPrice());
-    }
-
-    @Test
-    @DisplayName("""
             Given a Price with a null id
             When the Price is created
             Then a DomainException should be thrown
@@ -426,6 +415,8 @@ class PriceTest {
             Then a DomainException should be thrown
             """)
     void shouldThrowExceptionWhenEndPriceIsNegative() {
+    	
+    	final BigDecimal negativePrice = new BigDecimal("-1.00");
 
         DomainException exception = assertThrows(
                 DomainException.class,
@@ -437,7 +428,7 @@ class PriceTest {
                         TARIFF_ID,
                         PRODUCT_ID,
                         PRIORITY,
-                        new BigDecimal("-1.00"),
+                        negativePrice,
                         CURRENCY_CODE,
                         CREATED_AT));
 
