@@ -14,16 +14,16 @@ import com.inditex.ecommerce.pricing.infrastructure.adapter.output.persistence.e
 public interface PriceRepository extends JpaRepository<PriceEntity, UUID> {
 
 	@Query("""
-			SELECT p
-			FROM PriceEntity p
-			WHERE p.brandId = :brandId
-			  AND p.productId = :productId
-			  AND p.startDate <= :applicableDate
-              AND p.endDate >= :applicableDate
-			ORDER BY p.priority DESC, 
-			         p.createdAt DESC, 
-			         p.id
-			""")
+            SELECT p
+            FROM PriceEntity p
+            WHERE p.brandId = :brandId
+            AND p.productId = :productId
+            AND p.startDate <= :applicableDate
+            AND p.endDate >= :applicableDate
+            ORDER BY p.priority DESC, 
+            p.createdAt DESC, 
+            p.id
+           """)
 	List<PriceEntity> findPrices(@Param("brandId") Integer brandId, @Param("productId") Long productId,
 			@Param("applicableDate") LocalDateTime applicableDate, Pageable pageable);
 
