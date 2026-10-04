@@ -1,10 +1,32 @@
 # API de consulta de precios
 
+## &Iacute;ndice
+
+* [Objetivo](#objetivo)
+* [Descripci&oacute;n](#description)
+* [Tecnolog&iacute;as](#technologies)
+* [Base de Datos](#base-de-datos)
+* [Criterio de selecci&oacute;n del precio](#price-selection)
+* [Estructura de la aplicaci&oacute;n](#application-structure)
+* [Estructura del proyecto](#estructura-del-proyecto)
+* [Endpoint](#endpoint)
+* [Datos iniciales](#datos-iniciales)
+* [Tests](#tests)
+* [Requisitos para ejecutar la aplicaci&oacute;n con Docker](#docker-requirements)
+* [Ejecutar la aplicaci&oacute;n](#execute-application)
+* [Ejecutar los tests](#ejecutar-los-tests)
+* [Generar el informe JaCoCo](#generar-el-informe-jacoco)
+* [Generar el informe Pit](#generar-el-informe-pit)
+* [Servicios Docker Compose](#servicios-docker-compose)
+* [Resumen de comandos](#resumen-de-comandos)
+* [Resumen de Mejoras](#resumen-de-mejoras)
+
+
 ## Objetivo
 
 Desarrollar una API REST que permita obtener el **precio final de un producto para una cadena en una fecha y hora determinadas**, aplicando la tarifa correspondiente de acuerdo a su periodo de vigencia y prioridad.
 
-## Descripci&oacute;n
+## <a id="description"></a> Descripci&oacute;n
 
 La aplicaci&oacute;n consulta la informaci&oacute;n de precios almacenada en la base de datos y determina qu&eacute; tarifa debe aplicarse en funci&oacute;n de:
 
@@ -16,7 +38,7 @@ Cuando existen varias tarifas aplicables para un mismo producto y periodo de tie
 
 La aplicaci&oacute;n utiliza una base de datos **H2 en memoria**, inicializada con los datos de ejemplo proporcionados.
 
-## Tecnolog&iacute;as
+## <a id="technologies"></a>Tecnolog&iacute;as
 
 * Java 21
 * Spring Boot 4
@@ -41,7 +63,7 @@ La tabla `PRICES` contiene los siguientes campos:
 Se crea un &iacute;ndice compuesto (CREATE INDEX idx_prices_brand_product ON prices (brand_id, product_id)) sobre BRAND_ID y PRODUCT_ID debido a que ambos atributos constituyen el criterio principal de b&uacute;squeda del precio final para un producto dentro de una cadena. El &iacute;ndice permite reducir significativamente el conjunto de registros candidatos antes de aplicar las condiciones de vigencia (START_DATE/END_DATE) y los criterios de desempate (PRIORITY y CREATED_AT).
 Esta decisi&oacute;n parte del supuesto de que la frecuencia de escrituras sobre la tabla es lo suficientemente moderada como para que el mantenimiento de este &iacute;ndice no tenga un impacto significativo en el rendimiento de las operaciones de inserci&oacute;n y actualizaci&oacute;n. La conveniencia de un &iacute;ndice adicional o de ampliar el existente deber&aacute; validarse mediante el plan de ejecuci&oacute;n y m&eacute;tricas reales de la carga.
 
-## Criterio de selecci&oacute;n del precio
+## <a id="price-selection"></a>Criterio de selecci&oacute;n del precio
 
 Para una fecha, producto y cadena determinados, se consideran las tarifas cuyo periodo de aplicaci&oacute;n contiene la fecha consultada.
 
@@ -56,7 +78,7 @@ Por ejemplo, para el **14/06 a las 16:00**, son aplicables las tarifas 1 y 2. Al
 ```text
 25.45 EUR
 ```
-## Estructura de la aplicaci&oacute;n
+## <a id="application-structure"></a> Estructura de la aplicaci&oacute;n
 
 Servicio REST de pricing construido con Java 21, Maven, Spring Boot y utilizando metodolog&iacute;a API First.
 
@@ -134,7 +156,7 @@ Respuesta:
 }
 ```
 
-### Documentaci&oacute;n de la API
+### <a id="api-documentation"></a> Documentaci&oacute;n de la API
 
 La documentaci&oacute;n de la API se encuentra disponible en esta url:
 
@@ -209,14 +231,14 @@ Se han implementado pruebas de integraci&oacute;n sobre el endpoint REST para va
 | 4    | 15/06 10:00  |    35455 |     1 |               3 |       30.50 EUR |
 | 5    | 16/06 21:00  |    35455 |     1 |               4 |       38.95 EUR |
 
-## Requisitos para ejecutar la aplicaci&oacute;n con Docker
+## <a id="docker-requirements"></a>Requisitos para ejecutar la aplicaci&oacute;n con Docker
 
 Para ejecutar el proyecto mediante Docker es necesario tener instalado:
 
 * Docker
 * Docker Compose
 
-## Ejecutar la aplicaci&oacute;n
+## <a id="execute-application"></a>Ejecutar la aplicaci&oacute;n
 
 Desde la ra&iacute;z del proyecto:
 

@@ -1,5 +1,12 @@
 # Mejoras
 
+## &Iacute;ndice
+
+- [Eficiencia](#eficiencia)       
+- [Testing](#testing)   
+- [Control de Versiones](#versions)            
+- [Configuraci&oacute;n](#setup)
+
 ## Eficiencia
 
 ### An&aacute;lisis
@@ -115,7 +122,7 @@ No obstante, esta conclusi&oacute;n depende de la distribuci&oacute;n de los dat
 
 Finalmente, la incorporaci&oacute;n de un &iacute;ndice adicional implica un coste de mantenimiento durante operaciones de escritura (`INSERT`, `UPDATE` y `DELETE`), por lo que la decisi&oacute;n debe considerar tanto la frecuencia de las consultas de lectura como el volumen y frecuencia de las operaciones de escritura en ambiente productivo.
 
-## Testing
+## <a id="testing"></a>Testing
 
 A partir de la revisión, se identificó que la estrategia de testing presentaba oportunidades de mejora.
 
