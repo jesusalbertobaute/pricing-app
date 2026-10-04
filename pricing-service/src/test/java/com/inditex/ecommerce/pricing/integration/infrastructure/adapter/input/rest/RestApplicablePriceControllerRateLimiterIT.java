@@ -23,7 +23,7 @@ public class RestApplicablePriceControllerRateLimiterIT {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private final String URL_PATH = "/ecommerce/price";
+	private final String urlPath = "/v2/ecommerce/price";
 
 	@Test
 	@DisplayName("""
@@ -38,11 +38,11 @@ public class RestApplicablePriceControllerRateLimiterIT {
 		final LocalDateTime applicationDate = LocalDateTime.of(2026, 6, 14, 10, 0);
 
 		for (int i = 0; i < 2; i++) {
-			mockMvc.perform(get(URL_PATH).param("brandId", brandId.toString()).param("productId", productId.toString())
+			mockMvc.perform(get(urlPath).param("brandId", brandId.toString()).param("productId", productId.toString())
 					.param("applicationDate", applicationDate.toString())).andExpect(status().isOk());
 		}
 
-		mockMvc.perform(get(URL_PATH).param("brandId", brandId.toString()).param("productId", productId.toString())
+		mockMvc.perform(get(urlPath).param("brandId", brandId.toString()).param("productId", productId.toString())
 				.param("applicationDate", applicationDate.toString())).andExpect(status().isTooManyRequests());
 
 	}
