@@ -1,10 +1,12 @@
-# Eficiencia
+# Mejoras
 
-## An&aacute;lisis
+## Eficiencia
+
+### An&aacute;lisis
 
 Se analiz&oacute; la consulta SQL generada por JPA sobre la base de datos H2 con el objetivo de evaluar la eficiencia de la extracci&oacute;n de precios.
 
-### Consulta del Repository
+#### Consulta del Repository
 
 ```java
 @Query("""
@@ -25,7 +27,7 @@ List<PriceEntity> findPrices(
     Pageable pageable);
 ```
 
-### Consulta SQL generada
+#### Consulta SQL generada
 
 La consulta SQL equivalente generada por Hibernate es:
 
@@ -54,7 +56,7 @@ FETCH FIRST ? ROWS ONLY;
 
 El servicio utiliza `PageRequest.of(0, 1)`, por lo que Hibernate incorpora `FETCH FIRST 1 ROWS ONLY`. De esta forma, aunque existan m&uacute;ltiples precios aplicables, la base de datos &uacute;nicamente devuelve el primer resultado necesario.
 
-## Evaluaci&oacute;n de &iacute;ndices
+#### Evaluaci&oacute;n de &iacute;ndices
 
 Se utiliz&oacute; un conjunto de datos sint&eacute;tico para evaluar diferentes estrategias de indexaci&oacute;n. El dataset contiene un volumen general de aproximadamente 100.000 registros y se a&ntilde;adieron registros adicionales para generar un escenario con un elevado n&uacute;mero de candidatos para la combinaci&oacute;n:
 
@@ -79,7 +81,7 @@ Adem&aacute;s, antes de realizar las mediciones se ejecut&oacute; un **warm-up d
 
 Posteriormente, se realizaron **150 ejecuciones automatizadas** de la misma consulta para cada &iacute;ndice, registrando el tiempo de respuesta mediante `System.nanoTime()`.
 
-### Resultados
+##### Resultados
 
 | &iacute;ndice                               |  scanCount |        Media |          P95 |          P99 |
 | ------------------------------------ | ---------: | -----------: | -----------: | -----------: |
@@ -98,7 +100,7 @@ Asimismo, se observa una mejora en los percentiles de latencia:
 
 En pruebas adicionales realizadas con diferentes fechas de consulta se observaron resultados similares, con una mayor selectividad del &iacute;ndice que incorpora `START_DATE` para la distribuci&oacute;n de datos utilizada.
 
-## Conclusi&oacute;n
+##### Conclusi&oacute;n
 
 A partir de las mediciones realizadas, se decidi&oacute; utilizar el siguiente &iacute;ndice compuesto:
 
@@ -113,7 +115,7 @@ No obstante, esta conclusi&oacute;n depende de la distribuci&oacute;n de los dat
 
 Finalmente, la incorporaci&oacute;n de un &iacute;ndice adicional implica un coste de mantenimiento durante operaciones de escritura (`INSERT`, `UPDATE` y `DELETE`), por lo que la decisi&oacute;n debe considerar tanto la frecuencia de las consultas de lectura como el volumen y frecuencia de las operaciones de escritura en ambiente productivo.
 
-# Testing
+## Testing
 
 A partir de la revisión, se identificó que la estrategia de testing presentaba oportunidades de mejora.
 
@@ -133,7 +135,7 @@ Los tests unitarios validan el comportamiento aislado, los tests de integración
 
 Por tanto, la mejora realizada permite responder de forma más robusta a los problemas inicialmente detectados en el testing, aumentando la confianza en que una modificación del código pueda ser detectada por la suite de pruebas.
 
-# <a id="versions"></a>Control de Versiones
+## <a id="versions"></a>Control de Versiones
 
 Como mejora del proceso de desarrollo, se ha establecido una estrategia de control de versiones basada en convenciones de nombres, ramas de trabajo, commits estructurados, Pull Requests y versionado independiente de los proyectos.
 
@@ -351,7 +353,7 @@ Con esta estrategia se establece un proceso de control de versiones más estruct
 
 De esta forma, cada cambio puede trazarse desde su rama y commits hasta su integración, release y tag correspondiente.
 
-# <a id="setup"></a>Configuración
+## <a id="setup"></a>Configuración
 
 Para abordar los errores y *warnings* detectados por el **linter**, se incorporó **Spectral** como mecanismo de validación y *governance* del contrato OpenAPI.
 

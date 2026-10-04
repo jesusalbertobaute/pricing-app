@@ -83,21 +83,26 @@ La ejecuci&oacute;n mediante Docker permite compilar ambos proyectos y utilizar 
 ├── docker/
 │   ├── Dockerfile
 │   ├── Dockerfile.jacoco
+|   ├── Dockerfile.pit
 │   ├── docker-compose.yml
+|   ├── pit-report/
 │   └── jacoco-report/
 │
+├── docs/
 ├── .gitignore
 └── README.md
 ```
 > `docker/jacoco-report/` contiene los informes generados por JaCoCo y est&aacute; excluido de Git.
+> `docker/pit-report/` contiene los informes generados por pit y est&aacute; excluido de Git.
 
 ## Endpoint
 
 ### Consultar precio
 
 ```http
-GET /ecommerce/price
+GET /{version}/ecommerce/price
 ```
+Actualmente: GET /v2/ecommerce/price
 
 Par&aacute;metros:
 - `brandId` : Identificador de la cadena. 
@@ -113,7 +118,7 @@ Par&aacute;metros:
 Ejemplo:
 
 ```http
-GET /ecommerce/price?brandId=1&productId=35455&applicationDate=2026-06-14T16:00:00
+GET /v2/ecommerce/price?brandId=1&productId=35455&applicationDate=2026-06-14T16:00:00
 ```
 
 Respuesta:
@@ -228,7 +233,7 @@ http://localhost:8080
 
 ## Ejecutar los tests
 
-Los tests se ejecutan mediante el servicio `pricing-test` definido en:
+Los tests se ejecutan mediante el servicio `pricing-test-jacoco` y `pricing-test-pit` definidos en:
 
 ```text
 docker/docker-compose.yml
@@ -237,7 +242,7 @@ docker/docker-compose.yml
 Ejecutar:
 
 ```bash
-docker compose -f docker/docker-compose.yml run --rm pricing-test
+docker compose -f docker/docker-compose.yml run --rm pricing-test-jacoco
 ```
 
 Este comando crea un contenedor temporal utilizando `Dockerfile.jacoco` y ejecuta:
@@ -248,7 +253,7 @@ mvn verify
 
 ## Generar el informe JaCoCo
 
-El servicio `pricing-test` monta el directorio local:
+El servicio `pricing-test-jacoco` monta el directorio local:
 
 ```text
 docker/jacoco-report/
@@ -263,7 +268,7 @@ sobre el directorio de JaCoCo dentro del contenedor:
 Por tanto, al ejecutar:
 
 ```bash
-docker compose -f docker/docker-compose.yml run --rm pricing-test
+docker compose -f docker/docker-compose.yml run --rm pricing-test-jacoco
 ```
 
 el informe generado estar&aacute; disponible en:
@@ -280,9 +285,42 @@ docker/jacoco-report/index.html
 
 Puedes abrir este fichero en un navegador para consultar.
 
+## Generar el informe Pit
+
+El servicio `pricing-test-pit` monta el directorio local:
+
+```text
+docker/pit-report/
+```
+Al ejecutar:
+
+```bash
+docker compose -f docker/docker-compose.yml run --rm pricing-test-pit
+```
+
+Este comando crea un contenedor temporal utilizando `Dockerfile.pit` y ejecuta:
+
+```text
+mvn -Pmutation-testing org.pitest:pitest-maven:mutationCoverage
+```
+
+el informe generado estar&aacute; disponible en:
+
+```text
+docker/pit-report/
+```
+
+El informe HTML principal normalmente ser&aacute;:
+
+```text
+docker/pit-report/index.html
+```
+
+Puedes abrir este fichero en un navegador para consultar.
+
 ## Servicios Docker Compose
 
-El fichero `docker/docker-compose.yml` define dos servicios:
+El fichero `docker/docker-compose.yml` define tres servicios:
 
 ### pricing-service
 
@@ -304,12 +342,12 @@ y expone el puerto:
 8080
 ```
 
-### pricing-test
+### pricing-test-jacoco
 
 Ejecuta los tests y genera el informe JaCoCo:
 
 ```bash
-docker compose -f docker/docker-compose.yml run --rm pricing-test
+docker compose -f docker/docker-compose.yml run --rm pricing-test-jacoco
 ```
 
 Utiliza:
@@ -322,6 +360,26 @@ y monta el informe en:
 
 ```text
 docker/jacoco-report/
+```
+
+### pricing-test-pit
+
+Ejecuta los tests y genera el informe pit:
+
+```bash
+docker compose -f docker/docker-compose.yml run --rm pricing-test-pit
+```
+
+Utiliza:
+
+```text
+docker/Dockerfile.pit
+```
+
+y monta el informe en:
+
+```text
+docker/pit-report/
 ```
 
 ## Resumen de comandos
@@ -341,7 +399,7 @@ docker compose -f docker/docker-compose.yml up --build -d pricing-service
 ### Ejecutar tests + JaCoCo
 
 ```bash
-docker compose -f docker/docker-compose.yml run --rm pricing-test
+docker compose -f docker/docker-compose.yml run --rm pricing-test-jacoco
 ```
 
 ### Abrir informe JaCoCo
@@ -350,8 +408,27 @@ docker compose -f docker/docker-compose.yml run --rm pricing-test
 docker/jacoco-report/index.html
 ```
 
+### Ejecutar pit test
+
+```bash
+docker compose -f docker/docker-compose.yml run --rm pricing-test-pit
+```
+
+### Abrir informe pit
+
+```text
+docker/pit-report/index.html
+```
+
 ### Detener aplicaci&oacute;n
 
 ```bash
 docker compose -f docker/docker-compose.yml down
 ```
+
+## Resumen de Mejoras
+
+- [Eficiencia](IMPROVEMENTS.md#eficiencia)       
+- [Testing](IMPROVEMENTS.md#testing)   
+- [Control de Versiones](IMPROVEMENTS.md#versions)            
+- [Configuraci&oacute;n](IMPROVEMENTS.md#setup)
