@@ -88,7 +88,6 @@ La ejecuci&oacute;n mediante Docker permite compilar ambos proyectos y utilizar 
 |   ├── pit-report/
 │   └── jacoco-report/
 │
-├── docs/
 ├── .gitignore
 └── README.md
 ```
